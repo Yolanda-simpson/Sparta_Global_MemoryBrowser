@@ -22,16 +22,28 @@ namespace WPFMemoryBrowser
     public partial class MainWindow : Window
     {
         public List<string> comboBoxDataSource = new List<string>();
+        string str = "C:\\Users\\tech-w99a.LAPTOP-3BLG1NHP\\Engineering26\\week6\\day3\\Sparta_Global_MemoryBrowser\\urllist.txt";
         public MainWindow()
         {
             InitializeComponent();
+            readurl();
             populateCombo();
             foreach (var item in comboBoxDataSource)
             {
                 combo1.Items.Add(item);
             }
             brwapp.Navigate("https://www.spartaglobal.com");
+            
 
+        }
+
+        public void readurl()
+        {
+          string[] lines =  File.ReadAllLines(str);
+            foreach (var item in lines)
+            {
+                combo1.Items.Add(item);
+            }
 
         }
 
@@ -57,32 +69,39 @@ namespace WPFMemoryBrowser
             if (e.Key == Key.Enter)
             {
                 brwapp.Navigate(combo1.Text);
+                //String path = @""C:/ Users / tech - w99a.LAPTOP - 3BLG1NHP / Engineering26 / week6 / day3 / Sparta_Global_MemoryBrowser / urllist.txt"";
+               
+                //File.AppendText("C:\\Users\\tech-w99a.LAPTOP-3BLG1NHP\\Engineering26\\week6\\day3\\Sparta_Global_MemoryBrowser\\urllist.txt");
                 //File.WriteAllText("C:/Users/tech-w99a.LAPTOP-3BLG1NHP/Engineering26/week6/day3/Sparta_Global_MemoryBrowser/urllist.txt", combo1.Text);
-                using (StreamWriter str = new StreamWriter("C:/Users/tech-w99a.LAPTOP-3BLG1NHP/Engineering26/week6/day3/Sparta_Global_MemoryBrowser/urllist.txt"));
+                //File.WriteAllText("C:/Users/tech-w99a.LAPTOP-3BLG1NHP/Engineering26/week6/day3/Sparta_Global_MemoryBrowser/urllist.txt", combo1.Text);
 
-                //string x = str.ReadToEnd();
-                //string[] y = x.Split('\n');
-                //foreach (string s in y)
-                //{
-                //    combo1.Items.Add(s);
-                //}
-
-                //while (str.Peek() >= 0)
-                //{
-                //    combo1.Items.Add(str.ReadLine());
-                //}
-                //combo1.SelectedIndex = 0;
+                //Console.ReadKey();
+                if (File.Exists(str))
+               {
 
 
+                   //string str = "urllist.txt";
+                   using (StreamWriter sw = File.AppendText(str))
+                    {
+                       sw.WriteLine(combo1.Text);
+                   }
 
+                }
             }
 
-            //combo1.Items.AddRange(File.ReadAllLines("C:/Users/tech-w99a.LAPTOP-3BLG1NHP/Engineering26/week6/day3/Sparta_Global_MemoryBrowser/urllist.txt"));
+
+           
+
+
+
+        }
+
+            
 
         }
 
                 
         }
        
-    }
+    
 
